@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="countdown-screen" class="screen hidden">
+        <div class="loader-container">
+            <div class="gift-box">🎁</div>
+            <p class="loading-text">The greatest gift ever is loading...</p>
+        </div>
+        <div id="timer">00d : 00h : 00m : 00s</div>
+    </div>
+
+    <div id="question-screen" class="screen hidden">
+        <h1>Are you excited to turn 30?</h1>
+        <div class="btn-container">
+            <button id="yes-btn">Yes!</button>
+            <button id="no-btn">No</button>
+        </div>
+    </div>
+
+    <div id="date-screen" class="screen hidden">
+        <h2>Pick Your Birthday Date Idea! 🗓️</h2>
+        <p>Select a letter to unlock a curated date experience.</p>
+        <div class="alphabet-grid" id="alphabet-grid"></div>
+        
+        <div id="calendar-modal" class="modal hidden">
+            <div class="modal-content">
+                <h3 id="selected-date-title"></h3>
+                <p>Ready to lock this in? Choose a date below to add it to your calendar.</p>
+                <input type="date" id="invite-date-picker">
+                <button id="download-ics-btn">Add to Calendar 📅</button>
+                <button id="close-modal-btn">Go Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
