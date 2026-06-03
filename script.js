@@ -1,13 +1,7 @@
-// Configuration
-const TARGET_DATE = new Date('2026-07-12T00:00:00'); // Date when site unlocks
-const dateIdeas = {
-    A: "Amusement Park Day Trip",
-    B: "Breakfast in Bed & Bowling Night",
-    C: "Candlelight Dinner & Jazz Club",
-    D: "Drive-in Movie Marathon",
-    // ... Fill out E through Z here
-    Z: "Zoo VIP Tour & Safari Experience"
-};
+// Configuration: Target is July 12, 2026, 00:00:00 Indian Standard Time (IST)
+// Since IST is UTC+5:30, midnight IST is exactly 18:30:00 UTC on July 11th.
+// Note: Month is 0-indexed in JavaScript (0 = Jan, 6 = July).
+const TARGET_DATE_UTC = Date.UTC(2026, 6, 11, 18, 30, 0); 
 
 let selectedDateIdea = "";
 
@@ -22,10 +16,39 @@ const alphabetGrid = document.getElementById('alphabet-grid');
 const calendarModal = document.getElementById('calendar-modal');
 const modalTitle = document.getElementById('selected-date-title');
 
-// 1. Initial State Check
+const dateIdeas = {
+    A: "Amusement Park Day Trip",
+    B: "Breakfast in Bed & Bowling Night",
+    C: "Candlelight Dinner & Jazz Club",
+    D: "Drive-in Movie Marathon",
+    E: "Escape Room Challenge",
+    F: "Fancy Fondue Night at Home",
+    G: "Glamping & Stargazing Weekend",
+    H: "Hot Air Balloon Ride",
+    I: "Ice Skating & Hot Cocoa",
+    J: "Jazz Club & Cocktail Night",
+    K: "Kayaking Adventure",
+    L: "Luxury Spa & Massage Day",
+    M: "Moonlight Beach Picnic",
+    N: "Nature Hike & Scenic Overlook",
+    O: "Outdoor Concert Night",
+    P: "Pottery Throwing Class",
+    Q: "Quick Weekend Getaway",
+    R: "Rooftop Dinner & Drinks",
+    S: "Safari Tour or Day Trip",
+    T: "Tasting Menu Experience",
+    U: "Underground Comedy Show",
+    V: "Vineyard Wine Tasting Tour",
+    W: "Waterfront Fine Dining",
+    X: "Xylograph/Art Workshop",
+    Y: "Yacht Cruise Sunset Dinner",
+    Z: "Zoo VIP Tour Experience"
+};
+
+// 1. Check Phase based on Absolute Global Time
 function checkPhase() {
-    const now = new Date();
-    if (now < TARGET_DATE) {
+    const now = new Date().getTime(); // Gets absolute global timestamp
+    if (now < TARGET_DATE_UTC) {
         countdownScreen.classList.remove('hidden');
         startCountdown();
     } else {
@@ -33,11 +56,11 @@ function checkPhase() {
     }
 }
 
-// 2. Countdown Timer
+// 2. Precise Countdown Timer
 function startCountdown() {
     const interval = setInterval(() => {
-        const now = new Date().getTime();
-        const distance = TARGET_DATE.getTime() - now;
+        const now = new Date().getTime(); // Live update every single second
+        const distance = TARGET_DATE_UTC - now;
 
         if (distance < 0) {
             clearInterval(interval);
@@ -57,7 +80,6 @@ function startCountdown() {
 
 // 3. Runaway "No" Button Logic
 noBtn.addEventListener('mouseover', () => {
-    // Calculate a random location inside the viewport padding areas
     const padding = 50;
     const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - padding);
     const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - padding);
@@ -66,7 +88,6 @@ noBtn.addEventListener('mouseover', () => {
     noBtn.style.top = `${Math.max(padding, y)}px`;
 });
 
-// Avoid accidental keyboard navigation clicks to 'No'
 noBtn.addEventListener('click', (e) => e.preventDefault());
 
 // 4. Transition to Date Picker
@@ -102,7 +123,6 @@ document.getElementById('download-ics-btn').addEventListener('click', () => {
         return;
     }
 
-    // Format date string to YYYYMMDD format required by iCalendar format
     const formattedDate = chosenDate.replace(/-/g, '');
     
     const icsContent = [
@@ -126,10 +146,9 @@ document.getElementById('download-ics-btn').addEventListener('click', () => {
     document.body.removeChild(link);
 });
 
-// Modal Controls
 document.getElementById('close-modal-btn').addEventListener('click', () => {
     calendarModal.classList.add('hidden');
 });
 
-// Execute on page load
+// Run execution check immediately on load
 checkPhase();
