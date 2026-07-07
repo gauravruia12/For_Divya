@@ -1,11 +1,11 @@
 :root {
-    --primary: #ff6b6b;
-    --secondary: #f06292;
-    --accent: #4dadf7;
-    --bg: #fffcfc;
-    --card-front: #ffe3e3;
-    --card-back: #ffffff;
-    --text: #2d3748;
+    --primary: #d63031;        /* Deep romantic red */
+    --secondary: #fd79a8;      /* Soft rose pink */
+    --accent: #ffeaa7;         /* Warm gold accent */
+    --bg-start: #fff5f6;       /* Soft blush pink */
+    --bg-end: #ffe3e8;         /* Warm rose tint */
+    --text-main: #2d3436;      /* Charcoal for readability */
+    --glass: rgba(255, 255, 255, 0.85);
 }
 
 * {
@@ -14,132 +14,143 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    color: var(--text-main);
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Background Floating Hearts Animation */
+body::before {
+    content: "❤️";
+    position: fixed;
+    font-size: 14px;
+    opacity: 0.15;
+    animation: floatBackground 20s infinite linear;
+    z-index: -1;
+    text-shadow: 40vw 15vh 0 rgba(214,48,49,0.1), 80vw 45vh 0 rgba(253,121,168,0.15), 15vw 70vh 0 rgba(214,48,49,0.1), 60vw 85vh 0 rgba(253,121,168,0.1);
+}
+
+@keyframes floatBackground {
+    0% { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
 }
 
 .screen { width: 100%; min-height: 100vh; display: flex; flex-direction: column; }
 .hidden { display: none !important; }
 
-/* Phase 1 Countdown Styles (Retained) */
-#countdown-screen { justify-content: center; align-items: center; text-align: center; }
-.gift-box { font-size: 70px; animation: pulse 1.5s infinite ease-in-out; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-.loading-text { font-size: 1.1rem; font-weight: 600; color: var(--secondary); margin-top: 10px; }
-#timer { font-size: 1.8rem; font-weight: bold; margin-top: 15px; }
-
-/* Mobile Dashboard Layout */
-.hero-header {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
-    box-shadow: 0 4px 15px rgba(240, 98, 146, 0.2);
+/* --- PHASE 1: ELEVATED COUNTDOWN --- */
+#countdown-screen { justify-content: center; align-items: center; text-align: center; padding: 20px; }
+.gift-box { 
+    font-size: 90px; 
+    filter: drop-shadow(0 10px 15px rgba(214,48,49,0.2));
+    animation: heartbeat 1.2s infinite cubic-bezier(0.215, 0.610, 0.355, 1); 
+}
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    20% { transform: scale(1.12); }
+    40% { transform: scale(1.02); }
+    60% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+.loading-text { 
+    font-size: 1.3rem; 
+    font-weight: 700; 
+    letter-spacing: -0.5px;
+    color: var(--primary); 
+    margin-top: 25px; 
+    font-style: italic;
+}
+#timer { 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    background: var(--glass);
+    padding: 12px 24px;
+    border-radius: 50px;
+    box-shadow: 0 10px 25px rgba(214, 48, 49, 0.08);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255,255,255,0.6);
+    color: var(--text-main);
+    margin-top: 25px; 
 }
 
-.hero-header h1 { font-size: 1.6rem; margin: 0 0 10px 0; font-weight: 800; line-height: 1.3; }
-.hero-header .subtitle { font-size: 1rem; margin: 0; opacity: 0.9; font-weight: 400; }
+/* --- PHASE 2 & 3: ROMANTIC MOBILE DASHBOARD --- */
+.hero-header {
+    background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+    color: white;
+    padding: 40px 24px;
+    text-align: center;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    box-shadow: 0 10px 30px rgba(214, 48, 49, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+.hero-header::after {
+    content: "✨";
+    position: absolute;
+    opacity: 0.3;
+    font-size: 1.5rem;
+    top: 15px; right: 25px;
+    animation: pulse 2s infinite alternate;
+}
+.hero-header h1 { font-size: 1.8rem; margin: 0 0 12px 0; font-weight: 900; line-height: 1.2; letter-spacing: -0.5px; }
+.hero-header .subtitle { font-size: 1rem; margin: 0; opacity: 0.95; font-weight: 400; line-height: 1.4; }
 
-.mobile-container { padding: 20px; flex: 1; }
-.mobile-container h3 { font-size: 1rem; color: #718096; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+.mobile-container { padding: 25px 20px; flex: 1; }
+.mobile-container h3 { 
+    font-size: 0.9rem; 
+    color: #b2bec3; 
+    margin-bottom: 20px; 
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; 
+    font-weight: 700;
+    text-align: center;
+}
 
-/* 3D Flipping Grid Configuration */
+/* Luxury 3D Cards */
 .flip-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Clean 3-column layout perfect for mobile viewports */
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
     padding-bottom: 40px;
 }
-
-.flip-card {
-    height: 105px;
-    perspective: 1000px;
-}
-
+.flip-card { height: 115px; perspective: 1000px; }
 .card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform-style: preserve-3d;
-    cursor: pointer;
+    position: relative; width: 100%; height: 100%;
+    text-align: center; transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d; cursor: pointer;
 }
-
-/* JavaScript class toggled on user click */
-.card-inner.flipped {
-    transform: rotateY(180deg);
-}
+.card-inner.flipped { transform: rotateY(180deg); }
 
 .card-front, .card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+    position: absolute; width: 100%; height: 100%;
+    -webkit-backface-visibility: hidden; backface-visibility: hidden;
+    border-radius: 20px; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; padding: 10px;
+    box-shadow: 0 8px 20px rgba(214, 48, 49, 0.05);
 }
-
 .card-front {
-    background-color: var(--card-front);
+    background: var(--glass);
     color: var(--primary);
-    font-size: 2rem;
-    font-weight: 800;
-    border: 2px solid rgba(255, 107, 107, 0.1);
+    font-size: 2.2rem;
+    font-weight: 900;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
 }
-
 .card-back {
-    background-color: var(--card-back);
+    background: #ffffff;
     transform: rotateY(180deg);
     border: 2px solid var(--secondary);
 }
-
-.card-back .idea-text { font-size: 0.75rem; font-weight: 600; margin-bottom: 6px; line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.card-back .book-btn { background: var(--secondary); color: white; border: none; padding: 4px 8px; border-radius: 20px; font-size: 0.65rem; font-weight: bold; width: 100%; }
-
-/* Ergonomic Mobile Modal */
-.modal {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-    display: flex; justify-content: center; align-items: flex-end; /* Slides up from mobile bottom */
-    z-index: 1000;
-}
-
-.modal-content {
-    background: white; width: 100%; max-width: 500px;
-    padding: 30px 24px; border-top-left-radius: 28px; border-top-right-radius: 28px;
-    text-align: center; box-shadow: 0 -10px 25px rgba(0,0,0,0.1);
-    animation: slideUp 0.3s ease-out;
-}
-
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-.modal-emoji { font-size: 2.5rem; margin-bottom: 10px; }
-.modal-content h3 { font-size: 1.3rem; margin: 0 0 10px 0; color: var(--text); }
-.modal-content p { font-size: 0.95rem; color: #4a5568; line-height: 1.5; margin-bottom: 20px; }
-
-.modal-content input[type="date"] {
-    width: 100%; padding: 14px; border-radius: 12px; border: 2px solid #e2e8f0;
-    font-size: 1rem; margin-bottom: 20px; outline: none; font-family: inherit;
-}
-
-#download-ics-btn {
-    width: 100%; background: var(--primary); color: white; border: none;
-    padding: 15px; border-radius: 14px; font-size: 1rem; font-weight: bold;
-    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3); margin-bottom: 10px;
-}
-
-#close-modal-btn {
-    width: 100%; background: none; color: #718096; border: none; padding: 10px; font-size: 0.9rem;
-}
+.card-back .idea-text { 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    color: var(--text-main);
+    margin-bottom: 8px; 
+    line-height: 1.3;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-
