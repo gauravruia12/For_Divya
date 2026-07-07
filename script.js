@@ -1,5 +1,5 @@
 // Target configuration (July 12, 2026, 00:00:00 IST)
-const TARGET_DATE_UTC = Date.UTC(2026, 6, 11, 18, 30, 0); 
+const TARGET_DATE_UTC = Date.UTC(2025, 6, 11, 18, 30, 0); 
 
 let selectedDateIdea = "";
 
