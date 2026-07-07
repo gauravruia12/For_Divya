@@ -1,5 +1,5 @@
 // Target configuration (July 12, 2026, 00:00:00 IST)
-const TARGET_DATE_UTC = Date.UTC(2025, 6, 11, 18, 30, 0); 
+const TARGET_DATE_UTC = Date.UTC(2026, 6, 11, 18, 30, 0);
 
 let selectedDateIdea = "";
 
@@ -11,32 +11,32 @@ const calendarModal = document.getElementById('calendar-modal');
 const modalTitle = document.getElementById('selected-date-title');
 
 const dateIdeas = {
-    A: "Arcade Games 🎢",
-    B: "Beers at a Brewery 🎳",
-    C: "Comedy show 🎷",
-    D: "Disco Night 🎬",
-    E: "Escape Room Challenge 🔑",
-    F: "Flea Market Shopping 🍫",
-    G: "Games Night ✨",
-    H: "Hiking 🎈",
-    I: "Ice cream shop ⛸️",
-    J: "Junk Food Date 💍",
-    K: "Karaoke 🛶",
-    L: "Laser Tag 💆‍♀️",
-    M: "Movie 🌊",
-    N: "Night Out ⛰️",
+    A: "Arcade Games 🕹️",
+    B: "Beers at a Brewery 🍺",
+    C: "Comedy Show 😂",
+    D: "Disco Night 🕺",
+    E: "Escape Room Challenge 🔐",
+    F: "Flea Market Shopping 🛍️",
+    G: "Games Night 🎲",
+    H: "Hiking 🥾",
+    I: "Ice Cream Shop 🍦",
+    J: "Junk Food Date 🍔",
+    K: "Karaoke 🎤",
+    L: "Laser Tag 🎯",
+    M: "Movie 🎬",
+    N: "Night Out 🌃",
     O: "Outdoor Concert Night 🎵",
-    P: "Putting/ Mini Golf 🏺",
+    P: "Putting / Mini Golf ⛳",
     Q: "Quick Weekend Getaway 🧳",
-    R: "Roller Coaster Park 🍹",
-    S: "Spa 🦁",
-    T: "Theatre Show 🍽️",
-    U: "Upscale Business 🎭",
-    V: "Volunteer Work 🍷",
-    W: "Waterfront Fine Dining 🥂",
-    X: "X-treme sports 🎨",
+    R: "Roller Coaster Park 🎢",
+    S: "Spa 💆‍♀️",
+    T: "Theatre Show 🎭",
+    U: "Upscale Bar Night 🍸",
+    V: "Volunteer Work 🤝",
+    W: "Waterfront Fine Dining 🌅",
+    X: "X-treme Sports 🏄",
     Y: "Yacht Sunset Cruise ⛵",
-    Z: "ZZZs - Sleep pampering 🐼"
+    Z: "ZZZs - Sleep Pampering 😴"
 };
 
 function checkPhase() {
@@ -76,6 +76,7 @@ function generateMobileAlphabetGrid() {
     alphabetGrid.innerHTML = "";
     for (let charCode = 65; charCode <= 90; charCode++) {
         const letter = String.fromCharCode(charCode);
+        const ticketNo = String(charCode - 64).padStart(2, '0');
         const currentIdea = dateIdeas[letter] || "Surprise Date Plan! ✨";
 
         const cardContainer = document.createElement('div');
@@ -83,10 +84,15 @@ function generateMobileAlphabetGrid() {
 
         cardContainer.innerHTML = `
             <div class="card-inner" id="card-${letter}">
-                <div class="card-front">${letter}</div>
+                <div class="card-front">
+                    <span class="ticket-eyebrow">Admit One</span>
+                    <span class="ticket-letter">${letter}</span>
+                    <div class="ticket-perf"></div>
+                    <span class="ticket-no">No. ${ticketNo}</span>
+                </div>
                 <div class="card-back">
                     <span class="idea-text">${currentIdea}</span>
-                    <button class="book-btn">Book 📅</button>
+                    <button class="book-btn">Redeem 📅</button>
                 </div>
             </div>
         `;
