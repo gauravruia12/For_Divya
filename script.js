@@ -43,7 +43,7 @@ const dateIdeas = {
 // Filename should be uploaded to the root of the repo, same as divya.jpg.
 // caption is optional — a short line under the photo.
 const dateMemories = {
-    G: { photo: "memory-g.jpg", caption: "Our first date night! 💕" }
+    G: { photo: "memory-g.jpg", caption: "Our first date night! 💕 12th July 2026" }
 };
 
 function checkPhase() {
