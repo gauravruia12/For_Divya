@@ -223,6 +223,37 @@ body::before {
     margin-top: 4px;
     letter-spacing: 0.5px;
 }
+.card-front .ticket-stamp {
+    position: absolute;
+    top: 6px; right: 8px;
+    font-size: 0.75rem;
+    color: var(--primary);
+    background: var(--secondary-light);
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.card-back.memory {
+    padding: 8px;
+}
+.card-back .memory-photo {
+    width: 100%;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--secondary-light);
+    margin-bottom: 6px;
+}
+.card-back .memory-caption {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.6rem;
+    color: var(--ink);
+    line-height: 1.25;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
 
 .card-back {
     transform: rotateY(180deg);
