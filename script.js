@@ -39,6 +39,13 @@ const dateIdeas = {
     Z: "ZZZs - Sleep Pampering 😴"
 };
 
+// Add a photo here once a date has actually happened.
+// Filename should be uploaded to the root of the repo, same as divya.jpg.
+// caption is optional — a short line under the photo.
+const dateMemories = {
+    G: { photo: "memory-g.jpg", caption: "Our first date night! 💕" }
+};
+
 function checkPhase() {
     const now = new Date().getTime();
     if (now < TARGET_DATE_UTC) {
@@ -79,20 +86,28 @@ function generateMobileAlphabetGrid() {
         const ticketNo = String(charCode - 64).padStart(2, '0');
         const currentIdea = dateIdeas[letter] || "Surprise Date Plan! ✨";
 
+        const memory = dateMemories[letter];
+
         const cardContainer = document.createElement('div');
         cardContainer.className = 'flip-card';
+
+        const backContent = memory
+            ? `<img class="memory-photo" src="${memory.photo}" alt="${letter} memory">
+               <span class="memory-caption">${memory.caption || currentIdea}</span>`
+            : `<span class="idea-text">${currentIdea}</span>
+               <button class="book-btn">Redeem 📅</button>`;
 
         cardContainer.innerHTML = `
             <div class="card-inner" id="card-${letter}">
                 <div class="card-front">
+                    ${memory ? '<span class="ticket-stamp">✓</span>' : ''}
                     <span class="ticket-eyebrow">Admit One</span>
                     <span class="ticket-letter">${letter}</span>
                     <div class="ticket-perf"></div>
                     <span class="ticket-no">No. ${ticketNo}</span>
                 </div>
-                <div class="card-back">
-                    <span class="idea-text">${currentIdea}</span>
-                    <button class="book-btn">Redeem 📅</button>
+                <div class="card-back${memory ? ' memory' : ''}">
+                    ${backContent}
                 </div>
             </div>
         `;
